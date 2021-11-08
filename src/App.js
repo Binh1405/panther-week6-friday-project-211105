@@ -1,24 +1,28 @@
-import logo from './logo.svg';
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom"
 import './App.css';
+import PublicNavbar from "./components/PublicNavbar";
+import DetailPage from "./pages/DetailPage";
+import Homepage from "./pages/Homepage";
+import Login from "./pages/LoginPage/Login";
+import NotFound from "./pages/NotFound"
+import 'bootstrap/dist/css/bootstrap.min.css';
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import PrivateRoute from "./routes/PrivateRoute";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <PublicNavbar/>
+      <Routes>
+        <Route exact path="/" element={<Homepage/>}/>
+        <Route exact path="/login" element={<Login/>}/>
+        <Route exact path="/profile" element={<ProfilePage/>}/>
+        <Route exact path="/register" element={<RegisterPage/>}/>
+        <Route exact path="/product/:id" element={<DetailPage/>}/>
+        <Route path="/*" element={<NotFound/>}/>
+      </Routes>
+    </Router>
   );
 }
 
