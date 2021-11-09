@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import api from '../apiService'
 import { useDispatch, useSelector } from 'react-redux'
-import {useNavigate} from "react-router-dom"
+import {useNavigate, useParams} from "react-router-dom"
 import prodAction from "../redux/actions/products.action"
 import { Alert, Col, Container, Row, Card, Form } from 'react-bootstrap'
 import { ClipLoader } from "react-spinners";
@@ -18,12 +18,14 @@ const Homepage = () => {
     const [search, setSearch] = useState("")
     const [query, setQuery] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
-    const history = useNavigate()
+    const navigate = useNavigate()
 
     const handleClickProduct = (productId) => {
-        history.push(`/products/${productId}`)
+      navigate(`/products/${productId}`, 
+      {replace: true});
+      console.log("productId", productId)
     }
-
+    
     const handleSearchInputChange = (e) => {
         setSearch(e.target.value)
     }
@@ -71,7 +73,7 @@ const Homepage = () => {
             ) : (
               <ul className="list-unstyled d-flex flex-wrap justify-content-between">
                 {products.map((product) => (
-                  <li key={product.id} onClick={() => handleClickProduct(product.id)}>
+                  <li key={product._id} onClick={() => handleClickProduct(product._id)}>
                     <Card
                       style={{
                         width: "12rem",
@@ -84,8 +86,8 @@ const Homepage = () => {
                         src={product.imageUrls[0]}
                       />
                       <Card.Body>
-                        <Card.Title>{product.title}</Card.Title>
-                        <Card.Text>@{product.description}</Card.Text>
+                        <Card.Title>{product.name}</Card.Title>
+                        <Card.Text>Price: {product.price}</Card.Text>
                       </Card.Body>
                     </Card>
                   </li>

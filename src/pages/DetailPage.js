@@ -25,7 +25,6 @@ const DetailPage = () => {
     useEffect(()=>{
         dispatch(prodAction.getDetail({productId}))
     }, [productId])
-
     return (
   
         <Container>
@@ -39,7 +38,7 @@ const DetailPage = () => {
                 {product && (
                   <img
                     className="w-100"
-                    src={`${BACKEND_API}/${product.imageLink}`}
+                    src={`${product.imageUrls[0]}`}
                     alt=""
                   />
                 )}
@@ -64,7 +63,7 @@ const DetailPage = () => {
                       <strong>Language:</strong> {product.language}
                     </div>
                     <Button onClick={() => addToShoppingList(product)}>
-                      Add to Reading List
+                      Add to Shopping Items
                     </Button>{" "}
                   </>
                 )}

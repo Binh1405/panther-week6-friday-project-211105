@@ -21,23 +21,27 @@ prodAction.getProducts = ({page, limit, search}) => async(dispatch) => {
     }
 }
 
-prodAction.getDetail = ({productId}) => async (dispatch) =>{
-    dispatch ({type: types.GET_SINGLE_PRODUCT_REQUEST, payload: null})
-    try{
-        const data = await api.get(`/products/${productId}`)
-        dispatch ({type: types.GET_SINGLE_PRODUCT_SUCCESS, payload: data.data.data.products})
-    } catch(error){
-        toast.error(error.message)
-        dispatch({type: types.GET_SINGLE_PRODUCT_FAIL, payload: error})
+prodAction.getDetail = ({productId}) => async (dispatch) => {
+    dispatch({type: types.GET_SINGLE_PRODUCT_REQUEST, payload: null});
+    try {
+      const data = await api.get(`/products/${productId}`);
+      console.log('data in getDetail', data.data.data);
+      dispatch({
+        type: types.GET_SINGLE_PRODUCT_SUCCESS,
+        payload: data.data.data.product,
+      });
+    } catch (error) {
+      toast.error(error.message);
+      dispatch({type: types.GET_SINGLE_PRODUCT_FAIL, payload: error});
     }
-    }
+  };
 
 prodAction.addToShoppingList = ({addProduct}) => async (dispatch) => {
     dispatch({type: types.ADD_FAVORITE_PRODUCT_REQUEST, payload: null})
     try{
         const data = await api.post(`/users/cart`, addProduct)
         toast.success("The product has been added to the shopping list")
-        dispatch({type: types.ADD_FAVORITE_PRODUCT_SUCCESS, payload: data.data.data.products})
+        dispatch({type: types.ADD_FAVORITE_PRODUCT_SUCCESS, payload: data.data.data.product})
     }catch(error){
         toast.error(error.message)
         dispatch({type: types.ADD_FAVORITE_PRODUCT_FAIL})
