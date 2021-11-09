@@ -36,6 +36,7 @@ const Homepage = () => {
     const dispatch = useDispatch()
 
     const products = useSelector((state)=> state.products.products)
+    console.log("product", products)
     useEffect(() => {
         dispatch(prodAction.getProducts({page, limit, query}))
     }, [dispatch, page, limit, query])
@@ -80,7 +81,7 @@ const Homepage = () => {
                     >
                       <Card.Img
                         variant="top"
-                        src={`${BACKEND_API}/${product.imageLink}`}
+                        src={product.imageUrls[0]}
                       />
                       <Card.Body>
                         <Card.Title>{product.title}</Card.Title>

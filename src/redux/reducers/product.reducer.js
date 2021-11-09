@@ -16,6 +16,7 @@ const productsReducer = (state = initialState, action) => {
         case types.ADD_FAVORITE_PRODUCT_REQUEST: 
         return {...state, loading: true}
         case types.GET_ALL_PRODUCT_SUCCESS:
+        console.log("payload", payload)
         return {...state, products: payload, loading: false}
         case types.GET_SINGLE_PRODUCT_SUCCESS:
         return {...state, loading: false, selectedProduct: payload}
